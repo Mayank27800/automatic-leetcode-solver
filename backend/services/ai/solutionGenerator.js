@@ -1,7 +1,7 @@
-const Anthropic = require("@anthropic-ai/sdk");
+const { GoogleGenAI } = require("@google/genai");
 
-const client = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY
+const ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY
 });
 
 async function generateSolution(question) {
@@ -22,18 +22,12 @@ Do not include markdown code fences.
 Do not include explanations.
 `;
 
-    const response = await client.messages.create({
-        model: "claude-sonnet-4-5",
-        max_tokens: 4096,
-        messages: [
-            {
-                role: "user",
-                content: prompt
-            }
-        ]
+    const response = await ai.models.generateContent({
+       model: "gemini-3.6-flash",
+        contents: prompt
     });
 
-    return response.content[0].text;
+    return response.text;
 }
 
 module.exports = {

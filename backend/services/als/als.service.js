@@ -7,6 +7,10 @@ const {
     getQuestions
 } = require("../leetcode/questionService");
 
+const {
+    generateSolution
+} = require("../ai/solutionGenerator");
+
 async function startALS() {
     console.log("ALS engine started");
 
@@ -21,19 +25,28 @@ async function startALS() {
         questionCount
     );
 
-    console.log(`Selected ${questionCount} questions:`);
+    console.log(`Selected ${questionCount} questions`);
 
-    selectedQuestions.forEach((question, index) => {
-        console.log(
-            `${index + 1}. ${question.title} (${question.difficulty})`
-        );
-    });
+    const results = [];
+
+    for (const question of selectedQuestions) {
+        console.log(`Generating solution for: ${question.title}`);
+
+        const solution = await generateSolution(question);
+
+        console.log(`Solution generated for: ${question.title}`);
+
+        results.push({
+            question,
+            solution
+        });
+    }
 
     return {
         success: true,
-        message: "ALS started",
+        message: "ALS solutions generated",
         questionCount,
-        questions: selectedQuestions
+        results
     };
 }
 
