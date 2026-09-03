@@ -1,19 +1,21 @@
 # ALS Architecture
 
-This document records the architecture and major technical decisions of the Automatic LeetCode Solver.
+## Project
 
-## Current Architecture
+Automatic LeetCode Solver (ALS)
 
-Architecture is currently being established.
+## Phase 1 Objective
 
-## Components
+Build a lightweight web application that can initiate and manage an automated LeetCode-solving workflow with minimal manual involvement.
 
-- Frontend
-- Backend
-- Automation Engine
-- Database
-- AI Integration
+## Phase 1 Architecture
 
-## Status
-
-Initial project structure.
+```text
+Frontend
+    ↓
+Backend API
+    ↓
+ALS Engine
+    ├── Question Selector
+    ├── AI Solution Generator
+    └── Submission System
