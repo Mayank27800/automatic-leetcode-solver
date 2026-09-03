@@ -4,9 +4,29 @@ import "./App.css";
 function App() {
     const [status, setStatus] = useState("Ready");
 
-    const handleStart = () => {
-        setStatus("Starting ALS...");
-    };
+const handleStart = async () => {
+    setStatus("Starting ALS...");
+
+    try {
+        const response = await fetch("http://localhost:3000/api/als/start", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            setStatus(data.message);
+        } else {
+            setStatus("Failed to start ALS");
+        }
+    } catch (error) {
+        console.error(error);
+        setStatus("Could not connect to backend");
+    }
+};
 
     return (
         <div className="app">

@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+const alsRoutes = require("./routes/als");
+
 const app = express();
 
 const PORT = 3000;
@@ -13,6 +15,8 @@ app.get("/", (req, res) => {
         message: "ALS backend is running"
     });
 });
+
+app.use("/api/als", alsRoutes);
 
 app.listen(PORT, () => {
     console.log(`ALS backend running on http://localhost:${PORT}`);
